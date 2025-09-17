@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+
+    --radius: 1rem;
+
+    --temperature: 25 85% 55%;
+    --temperature-foreground: 0 0% 100%;
+    
+    --humidity: 200 85% 50%;
+    --humidity-foreground: 0 0% 100%;
+    
+    --pressure: 270 75% 60%;
+    --pressure-foreground: 0 0% 100%;
+    
+    --altitude: 120 60% 45%;
+    --altitude-foreground: 0 0% 100%;
+    
+    --precipitation: 220 85% 55%;
+    --precipitation-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground min-h-screen;
+    background: rgb(30, 30, 30);
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: whitesmoke;
+    backdrop-filter: var(--glass-backdrop);
+    border: 1px solid var(--glass-border);
+  }
+  
+  .weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 40vw, 400px), 1fr));
+    min-height: 30rem;
+    gap: 2rem;
+    color: black;
+    align-items: start;
+  }
+  
+  .texto {
+    color: rgb(125, 125, 125);
+  }
+
+  .footer {
+    background: rgb(15, 15, 15);
+  }
+}
+
+@media (max-width: 768px) {
+  .weather-grid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
