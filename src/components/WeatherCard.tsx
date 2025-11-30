@@ -10,6 +10,8 @@ interface WeatherCardProps {
   icon: LucideIcon;
   color: "temperature" | "humidity" | "pressure" | "altitude" | "precipitation";
   isLoading?: boolean;
+  customColor?: string;
+  statusText?: string;
   children?: React.ReactNode;
 }
 
@@ -20,6 +22,8 @@ export function WeatherCard({
   icon: Icon,
   color,
   isLoading = false,
+  customColor,
+  statusText,
   children,
 }: WeatherCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -40,58 +44,6 @@ export function WeatherCard({
     precipitation: "text-precipitation",
   };
 
-  const getTemperatureWarning = (temp: number) => {
-    if (temp <= 20) {
-      return "Frio";
-    }
-    if (temp >= 35) {
-      return "Quente";
-    }
-    return "Normal";
-  };
-
-  const getHumidityWarning = (humidity: number) => {
-    if (humidity < 40) {
-      return "Baixa";
-    }
-    if (humidity > 60) {
-      return "Alta";
-    }
-    return "Normal";
-  };
-
-  const getPressureWarning = (press: number) => {
-    if (press >= 980 && press <= 1030 || press > 1030) {
-      return "Normal";
-    }
-    if (press < 980 && press >= 600) {
-      return "Atenção";
-    }
-    if (press < 600) {
-      return "Muito Baixa";
-    }
-  };
-
-  const getHeightWarning = (height: number) => {
-    if (height < 2400) {
-      return "Segura";
-    }
-    if (height > 2400 && height < 4500) {
-      return "Atenção";
-    }
-    return "Muito Alta";
-  };
-
-  const getRainWarning = (rain: number) => {
-    if (rain < 40) {
-      return "Baixa";
-    }
-    if (rain > 60) {
-      return "Alta";
-    }
-    return "Normal";
-  };
-
   return (
     <Card
       className={cn(
@@ -99,6 +51,7 @@ export function WeatherCard({
         "border-2",
         colorClasses[color]
       )}
+      style={customColor ? { borderColor: customColor } : {}}
     >
       <div className="flex items-start justify-between">
         <div className="space-y-2">
@@ -115,29 +68,9 @@ export function WeatherCard({
               </>
             )}
           </div>
-          {title.toLowerCase() === "temperatura" && !isLoading && (
+          {!isLoading && statusText && (
             <p className="text-sm text-muted-foreground">
-              {getTemperatureWarning(parseFloat(value))}
-            </p>
-          )}
-          {title.toLowerCase() === "umidade" && !isLoading && (
-            <p className="text-sm text-muted-foreground">
-              {getHumidityWarning(parseFloat(value))}
-            </p>
-          )}
-          {title.toLowerCase() === "pressão" && !isLoading && (
-            <p className="text-sm text-muted-foreground">
-              {getPressureWarning(parseFloat(value))}
-            </p>
-          )}
-          {title.toLowerCase() === "altitude" && !isLoading && (
-            <p className="text-sm text-muted-foreground">
-              {getHeightWarning(parseFloat(value))}
-            </p>
-          )}
-          {title.toLowerCase() === "precipitação" && !isLoading && (
-            <p className="text-sm text-muted-foreground">
-              {getRainWarning(parseFloat(value))}
+              {statusText}
             </p>
           )}
         </div>
@@ -146,8 +79,9 @@ export function WeatherCard({
           <div
             className={cn(
               "p-3 rounded-full bg-background/50 backdrop-blur-sm",
-              iconColorClasses[color]
+              !customColor && iconColorClasses[color]
             )}
+            style={customColor ? { color: customColor } : {}}
           >
             <Icon className="h-6 w-6" />
           </div>
