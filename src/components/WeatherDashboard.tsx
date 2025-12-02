@@ -164,7 +164,6 @@ export function WeatherDashboard() {
           </div>
 
           <div className="weather-grid">
-            {/* Temperatura */}
             {(() => {
               const tempConfig = getTempConfig(weatherData?.temperatura ?? 25);
               return (
@@ -189,7 +188,6 @@ export function WeatherDashboard() {
               );
             })()}
 
-            {/* Umidade */}
             {(() => {
               const humConfig = getHumidityConfig(weatherData?.umidade ?? 50);
               return (
@@ -214,7 +212,6 @@ export function WeatherDashboard() {
               );
             })()}
 
-            {/* Pressão */}
             {(() => {
               const pressConfig = getPressureConfig(weatherData?.pressao ?? 1013);
               return (
@@ -239,7 +236,6 @@ export function WeatherDashboard() {
               );
             })()}
 
-            {/* Precipitação – eixo Y de 0 a 5 */}
             {(() => {
               const rainConfig = getRainConfig(weatherData?.chuva_nivel ?? 0);
               return (
@@ -285,5 +281,6 @@ export function WeatherDashboard() {
     </div>
   );
 }
+
 
 
