@@ -69,25 +69,55 @@ const getPressureConfig = (value: number) => {
   return { icon: Gauge, color: "hsl(150, 80%, 45%)", label: "Normal" };
 };
 
+// Função atualizada para os 6 níveis de precipitação
 const getRainConfig = (level: number) => {
-  switch (level) {
-    case 0: // Sem Chuva
-      return { icon: Sun, color: "hsl(40, 90%, 60%)", label: "Sem Chuva" };
-    case 1: // Garoa
-      return { icon: CloudDrizzle, color: "hsl(190, 80%, 60%)", label: "Garoa" };
-    case 2: // Fraca
-      return { icon: CloudRain, color: "hsl(200, 80%, 55%)", label: "Fraca" };
-    case 3: // Moderada
-      return { icon: CloudRain, color: "hsl(210, 80%, 50%)", label: "Moderada" };
-    case 4: // Forte
-      return { icon: CloudLightning, color: "hsl(220, 85%, 55%)", label: "Forte" };
-    case 5: // Intensa
-      return { icon: CloudLightning, color: "hsl(260, 90%, 60%)", label: "Intensa" };
-    case 6: // Extrema
-      return { icon: CloudLightning, color: "hsl(0, 90%, 60%)", label: "Extrema" };
-    default:
-      return { icon: CloudRain, color: "hsl(220, 85%, 55%)", label: "--" };
+  if (level < 300) {
+    return { 
+      icon: Sun, 
+      color: "hsl(40, 90%, 60%)", 
+      label: "Sem Chuva" 
+    };
   }
+  if (level >= 300 && level < 310) {
+    return { 
+      icon: CloudDrizzle, 
+      color: "hsl(190, 80%, 60%)", 
+      label: "Garoa" 
+    };
+  }
+  if (level >= 310 && level < 320) {
+    return { 
+      icon: CloudRain, 
+      color: "hsl(200, 80%, 55%)", 
+      label: "Fraca" 
+    };
+  }
+  if (level >= 320 && level < 330) {
+    return { 
+      icon: CloudRain, 
+      color: "hsl(210, 80%, 50%)", 
+      label: "Moderada" 
+    };
+  }
+  if (level >= 330 && level < 340) {
+    return { 
+      icon: CloudLightning, 
+      color: "hsl(220, 85%, 55%)", 
+      label: "Forte" 
+    };
+  }
+  if (level >= 340 && level < 400) {
+    return { 
+      icon: CloudLightning, 
+      color: "hsl(260, 90%, 60%)", 
+      label: "Intensa" 
+    };
+  }
+  return { 
+    icon: CloudLightning, 
+    color: "hsl(0, 90%, 60%)", 
+    label: "Extrema" 
+  };
 };
 
 const MAX_DATA_POINTS = 30;
@@ -229,63 +259,4 @@ export function WeatherDashboard() {
                   icon={pressConfig.icon}
                   color="pressure"
                   isLoading={isLoading}
-                  customColor={pressConfig.color}
-                  statusText={pressConfig.label}
-                >
-                  <WeatherChart
-                    data={historicalData.pressao}
-                    dataKey="value"
-                    unit=""
-                    stroke={pressConfig.color}
-                    title="Pressão em Tempo Real (hPa)"
-                  />
-                </WeatherCard>
-              );
-            })()}
-
-            {(() => {
-              const rainConfig = getRainConfig(weatherData?.chuva_nivel ?? 0);
-              return (
-                <WeatherCard
-                  title="Precipitação"
-                  value={weatherData?.chuva_intensidade || "Sem dados"}
-                  unit=""
-                  icon={rainConfig.icon}
-                  color="precipitation"
-                  isLoading={isLoading}
-                  customColor={rainConfig.color}
-                  statusText={"  "}
-                >
-                  <WeatherChart
-                    data={historicalData.chuva_nivel}
-                    dataKey="value"
-                    unit=""
-                    stroke={rainConfig.color}
-                    title={`Nível de Intensidade`}
-                  />
-                </WeatherCard>
-              );
-            })()}
-          </div>
-        </div>
-      </main>
-
-      {/* Footer fixado no fim */}
-      <footer className="footer text-center pt-8 pb-6 border-t border-white/20 w-full">
-        <p className="text-sm text-white">
-          &copy; {new Date().getFullYear()} Todos os direitos reservados.
-        </p>
-        <div className="mt-4 text-sm text-white space-y-1">
-          <p>Desenvolvedores:</p>
-          <p>Adriano Fernandes Scarabelli</p>
-          <p>Giovani Martinho do Nascimento</p>
-        </div>
-        <p className="text-xs text-white mt-4">
-          Projeto desenvolvido para aprovação de horas de estágio prestadas à faculdade
-        </p>
-      </footer>
-    </div>
-  );
-}
-
-
+                 
