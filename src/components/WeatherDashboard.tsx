@@ -83,8 +83,6 @@ const getRainConfig = (level: number) => {
       return { icon: CloudLightning, color: "hsl(220, 85%, 55%)", label: "Forte" };
     case 5: // Intensa
       return { icon: CloudLightning, color: "hsl(260, 90%, 60%)", label: "Intensa" };
-    case 6: // Extrema
-      return { icon: CloudLightning, color: "hsl(0, 90%, 60%)", label: "Extrema" };
     default:
       return { icon: CloudRain, color: "hsl(220, 85%, 55%)", label: "--" };
   }
@@ -287,3 +285,4 @@ export function WeatherDashboard() {
     </div>
   );
 }
+
