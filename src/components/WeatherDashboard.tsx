@@ -41,50 +41,50 @@ const chartColors = {
 
 const getTempConfig = (value: number) => {
   if (value <= 20) {
-    return { icon: ThermometerSnowflake, color: "hsl(200, 90%, 60%)", label: "Frio" };
+    return { icon: ThermometerSnowflake, color: "red", label: "Frio" };
   }
   if (value >= 30) {
-    return { icon: ThermometerSun, color: "hsl(25, 90%, 60%)", label: "Quente" };
+    return { icon: ThermometerSun, color: "red", label: "Quente" };
   }
-  return { icon: Thermometer, color: "hsl(150, 80%, 45%)", label: "Normal" };
+  return { icon: Thermometer, color: "red", label: "Normal" };
 };
 
 const getHumidityConfig = (value: number) => {
   if (value < 40) {
-    return { icon: Droplet, color: "hsl(45, 90%, 60%)", label: "Baixa" };
+    return { icon: Droplet, color: "lightblue", label: "Baixa" };
   }
   if (value > 70) {
-    return { icon: Waves, color: "hsl(200, 90%, 60%)", label: "Alta" };
+    return { icon: Waves, color: "lightblue", label: "Alta" };
   }
-  return { icon: Droplets, color: "hsl(150, 80%, 45%)", label: "Normal" };
+  return { icon: Droplets, color: "lightblue", label: "Normal" };
 };
 
 const getPressureConfig = (value: number) => {
   if (value < 1000) {
-    return { icon: Activity, color: "hsl(45, 90%, 60%)", label: "Baixa" };
+    return { icon: Activity, color: "green", label: "Baixa" };
   }
   if (value > 1020) {
-    return { icon: Activity, color: "hsl(200, 90%, 60%)", label: "Alta" };
+    return { icon: Activity, color: "green", label: "Alta" };
   }
-  return { icon: Gauge, color: "hsl(150, 80%, 45%)", label: "Normal" };
+  return { icon: Gauge, color: "green", label: "Normal" };
 };
 
 const getRainConfig = (level: number) => {
   switch (level) {
     case 0:
-      return { icon: Sun, color: "hsl(40, 90%, 60%)", label: "Sem Chuva" };
+      return { icon: Sun, color: "darkblue", label: "Sem Chuva" };
     case 1:
-      return { icon: CloudDrizzle, color: "hsl(190, 80%, 60%)", label: "Garoa" };
+      return { icon: CloudDrizzle, color: "darkblue", label: "Garoa" };
     case 2:
-      return { icon: CloudRain, color: "hsl(200, 80%, 55%)", label: "Fraca" };
+      return { icon: CloudRain, color: "darkblue", label: "Fraca" };
     case 3:
-      return { icon: CloudRain, color: "hsl(210, 80%, 50%)", label: "Moderada" };
+      return { icon: CloudRain, color: "darkblue", label: "Moderada" };
     case 4:
-      return { icon: CloudLightning, color: "hsl(220, 85%, 55%)", label: "Forte" };
+      return { icon: CloudLightning, color: "darkblue", label: "Forte" };
     case 5:
-      return { icon: CloudLightning, color: "hsl(260, 90%, 60%)", label: "Intensa" };
+      return { icon: CloudLightning, color: "darkblue", label: "Intensa" };
     default:
-      return { icon: CloudRain, color: "hsl(220, 85%, 55%)", label: "--" };
+      return { icon: CloudRain, color: "darkblue", label: "--" };
   }
 };
 
@@ -259,8 +259,8 @@ export function WeatherDashboard() {
                     unit=""
                     stroke={rainConfig.color}
                     title="Nível de Intensidade"
-                    yDomain={[0, 5]}           // 👈 ADICIONADO
-                    yTicks={[0, 1, 2, 3, 4, 5]} // 👈 ADICIONADO
+                    yDomain={[0, 5]}
+                    yTicks={[0, 1, 2, 3, 4, 5]}
                   />
                 </WeatherCard>
               );
@@ -285,3 +285,4 @@ export function WeatherDashboard() {
     </div>
   );
 }
+
