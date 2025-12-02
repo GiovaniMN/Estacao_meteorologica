@@ -33,58 +33,58 @@ interface ChartData {
 }
 
 const chartColors = {
-  temperature: "red",           // Temperatura em vermelho
-  humidity: "lightblue",        // Umidade em azul claro
-  pressure: "green",            // Pressão em verde
-  precipitation: "darkblue",    // Precipitação em azul escuro
+  temperature: "red",
+  humidity: "lightblue",
+  pressure: "green",
+  precipitation: "darkblue",
 };
 
 const getTempConfig = (value: number) => {
   if (value <= 20) {
-    return { icon: ThermometerSnowflake, color: "red", label: "Frio" };
+    return { icon: ThermometerSnowflake, color: "hsl(200, 90%, 60%)", label: "Frio" };
   }
   if (value >= 30) {
-    return { icon: ThermometerSun, color: "red", label: "Quente" };
+    return { icon: ThermometerSun, color: "hsl(25, 90%, 60%)", label: "Quente" };
   }
-  return { icon: Thermometer, color: "red", label: "Normal" };
+  return { icon: Thermometer, color: "hsl(150, 80%, 45%)", label: "Normal" };
 };
 
 const getHumidityConfig = (value: number) => {
   if (value < 40) {
-    return { icon: Droplet, color: "lightblue", label: "Baixa" };
+    return { icon: Droplet, color: "hsl(45, 90%, 60%)", label: "Baixa" };
   }
   if (value > 70) {
-    return { icon: Waves, color: "lightblue", label: "Alta" };
+    return { icon: Waves, color: "hsl(200, 90%, 60%)", label: "Alta" };
   }
-  return { icon: Droplets, color: "lightblue", label: "Normal" };
+  return { icon: Droplets, color: "hsl(150, 80%, 45%)", label: "Normal" };
 };
 
 const getPressureConfig = (value: number) => {
   if (value < 1000) {
-    return { icon: Activity, color: "green", label: "Baixa" };
+    return { icon: Activity, color: "hsl(45, 90%, 60%)", label: "Baixa" };
   }
   if (value > 1020) {
-    return { icon: Activity, color: "green", label: "Alta" };
+    return { icon: Activity, color: "hsl(200, 90%, 60%)", label: "Alta" };
   }
-  return { icon: Gauge, color: "green", label: "Normal" };
+  return { icon: Gauge, color: "hsl(150, 80%, 45%)", label: "Normal" };
 };
 
 const getRainConfig = (level: number) => {
   switch (level) {
     case 0:
-      return { icon: Sun, color: "darkblue", label: "Sem Chuva" };
+      return { icon: Sun, color: "hsl(40, 90%, 60%)", label: "Sem Chuva" };
     case 1:
-      return { icon: CloudDrizzle, color: "darkblue", label: "Garoa" };
+      return { icon: CloudDrizzle, color: "hsl(190, 80%, 60%)", label: "Garoa" };
     case 2:
-      return { icon: CloudRain, color: "darkblue", label: "Fraca" };
+      return { icon: CloudRain, color: "hsl(200, 80%, 55%)", label: "Fraca" };
     case 3:
-      return { icon: CloudRain, color: "darkblue", label: "Moderada" };
+      return { icon: CloudRain, color: "hsl(210, 80%, 50%)", label: "Moderada" };
     case 4:
-      return { icon: CloudLightning, color: "darkblue", label: "Forte" };
+      return { icon: CloudLightning, color: "hsl(220, 85%, 55%)", label: "Forte" };
     case 5:
-      return { icon: CloudLightning, color: "darkblue", label: "Intensa" };
+      return { icon: CloudLightning, color: "hsl(260, 90%, 60%)", label: "Intensa" };
     default:
-      return { icon: CloudRain, color: "darkblue", label: "--" };
+      return { icon: CloudRain, color: "hsl(220, 85%, 55%)", label: "--" };
   }
 };
 
@@ -269,4 +269,19 @@ export function WeatherDashboard() {
         </div>
       </main>
 
-      <footer className="footer text-center
+      <footer className="footer text-center pt-8 pb-6 border-t border-white/20 w-full">
+        <p className="text-sm text-white">
+          &copy; {new Date().getFullYear()} Todos os direitos reservados.
+        </p>
+        <div className="mt-4 text-sm text-white space-y-1">
+          <p>Desenvolvedores:</p>
+          <p>Adriano Fernandes Scarabelli</p>
+          <p>Giovani Martinho do Nascimento</p>
+        </div>
+        <p className="text-xs text-white mt-4">
+          Projeto desenvolvido para aprovação de horas de estágio prestadas à faculdade
+        </p>
+      </footer>
+    </div>
+  );
+}
