@@ -254,7 +254,7 @@ export function WeatherDashboard() {
                   color="precipitation"
                   isLoading={isLoading}
                   customColor={rainConfig.color}
-                  statusText={""}
+                  statusText={"  "}
                 >
                   <WeatherChart
                     data={historicalData.chuva_nivel}
@@ -287,4 +287,5 @@ export function WeatherDashboard() {
     </div>
   );
 }
+
 
