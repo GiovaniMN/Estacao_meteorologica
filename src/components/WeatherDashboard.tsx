@@ -34,7 +34,7 @@ interface ChartData {
 
 const chartColors = {
   temperature: "red",
-  humidity: "lightblue",
+  humidity: "blue",
   pressure: "green",
   precipitation: "darkblue",
 };
@@ -51,12 +51,12 @@ const getTempConfig = (value: number) => {
 
 const getHumidityConfig = (value: number) => {
   if (value < 40) {
-    return { icon: Droplet, color: "lightblue", label: "Baixa" };
+    return { icon: Droplet, color: "blue", label: "Baixa" };
   }
   if (value > 70) {
-    return { icon: Waves, color: "lightblue", label: "Alta" };
+    return { icon: Waves, color: "blue", label: "Alta" };
   }
-  return { icon: Droplets, color: "lightblue", label: "Normal" };
+  return { icon: Droplets, color: "blue", label: "Normal" };
 };
 
 const getPressureConfig = (value: number) => {
@@ -285,4 +285,5 @@ export function WeatherDashboard() {
     </div>
   );
 }
+
 
