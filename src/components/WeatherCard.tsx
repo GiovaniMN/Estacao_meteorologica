@@ -85,8 +85,7 @@ export function WeatherCard({
           >
             <Icon className="h-6 w-6" />
           </div>
-
-          {/* botão só aparece se houver conteúdo extra */}
+          
           {children && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
@@ -103,7 +102,6 @@ export function WeatherCard({
         </div>
       </div>
 
-      {/* conteúdo expandido (ex: gráfico) */}
       {children && (
         <div
           className={cn(
@@ -116,4 +114,5 @@ export function WeatherCard({
       )}
     </Card>
   );
+
 }
