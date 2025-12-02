@@ -254,14 +254,14 @@ export function WeatherDashboard() {
                   color="precipitation"
                   isLoading={isLoading}
                   customColor={rainConfig.color}
-                  statusText={weatherData?.chuva_descricao || "Sem precipitação"}
+                  statusText={""}
                 >
                   <WeatherChart
                     data={historicalData.chuva_nivel}
                     dataKey="value"
                     unit=""
                     stroke={rainConfig.color}
-                    title={`Intensidade: ${weatherData?.chuva_descricao || ""}`}
+                    title={`Nível de Intensidade`}
                   />
                 </WeatherCard>
               );
@@ -287,3 +287,4 @@ export function WeatherDashboard() {
     </div>
   );
 }
+
