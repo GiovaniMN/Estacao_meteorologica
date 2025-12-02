@@ -71,17 +71,17 @@ const getPressureConfig = (value: number) => {
 
 const getRainConfig = (level: number) => {
   switch (level) {
-    case 0: // Sem Chuva
+    case 0:
       return { icon: Sun, color: "hsl(40, 90%, 60%)", label: "Sem Chuva" };
-    case 1: // Garoa
+    case 1:
       return { icon: CloudDrizzle, color: "hsl(190, 80%, 60%)", label: "Garoa" };
-    case 2: // Fraca
+    case 2:
       return { icon: CloudRain, color: "hsl(200, 80%, 55%)", label: "Fraca" };
-    case 3: // Moderada
+    case 3:
       return { icon: CloudRain, color: "hsl(210, 80%, 50%)", label: "Moderada" };
-    case 4: // Forte
+    case 4:
       return { icon: CloudLightning, color: "hsl(220, 85%, 55%)", label: "Forte" };
-    case 5: // Intensa
+    case 5:
       return { icon: CloudLightning, color: "hsl(260, 90%, 60%)", label: "Intensa" };
     default:
       return { icon: CloudRain, color: "hsl(220, 85%, 55%)", label: "--" };
@@ -118,12 +118,10 @@ export function WeatherDashboard() {
             for (const key in data) {
               if (Object.prototype.hasOwnProperty.call(newHistoricalData, key)) {
                 const newPoint = { time: now, value: data[key] };
-                // Para o gráfico de chuva, usamos o nível se a chave for chuva_nivel
-                if (key === 'chuva_nivel' || key === 'temperatura' || key === 'umidade' || key === 'pressao') {
+
+                if (key === "chuva_nivel" || key === "temperatura" || key === "umidade" || key === "pressao") {
                   const dataArray = [...(newHistoricalData[key] || []), newPoint];
-                  if (dataArray.length > MAX_DATA_POINTS) {
-                    dataArray.shift();
-                  }
+                  if (dataArray.length > MAX_DATA_POINTS) dataArray.shift();
                   newHistoricalData[key] = dataArray;
                 }
               }
@@ -143,16 +141,14 @@ export function WeatherDashboard() {
   }, []);
 
   const formatValue = (value: number | undefined, decimals: number = 1): string => {
-    if (value === undefined || value === null) return "--";
+    if (!value && value !== 0) return "--";
     return value.toFixed(decimals);
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      {/* Conteúdo principal */}
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-8 max-w-7xl">
-          {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               Estação Meteorológica
@@ -167,8 +163,8 @@ export function WeatherDashboard() {
             )}
           </div>
 
-          {/* Weather Cards Grid */}
           <div className="weather-grid">
+            {/* Temperatura */}
             {(() => {
               const tempConfig = getTempConfig(weatherData?.temperatura ?? 25);
               return (
@@ -193,6 +189,7 @@ export function WeatherDashboard() {
               );
             })()}
 
+            {/* Umidade */}
             {(() => {
               const humConfig = getHumidityConfig(weatherData?.umidade ?? 50);
               return (
@@ -217,6 +214,7 @@ export function WeatherDashboard() {
               );
             })()}
 
+            {/* Pressão */}
             {(() => {
               const pressConfig = getPressureConfig(weatherData?.pressao ?? 1013);
               return (
@@ -241,6 +239,7 @@ export function WeatherDashboard() {
               );
             })()}
 
+            {/* Precipitação – eixo Y de 0 a 5 */}
             {(() => {
               const rainConfig = getRainConfig(weatherData?.chuva_nivel ?? 0);
               return (
@@ -259,7 +258,9 @@ export function WeatherDashboard() {
                     dataKey="value"
                     unit=""
                     stroke={rainConfig.color}
-                    title={`Nível de Intensidade`}
+                    title="Nível de Intensidade"
+                    yDomain={[0, 5]}           // 👈 ADICIONADO
+                    yTicks={[0, 1, 2, 3, 4, 5]} // 👈 ADICIONADO
                   />
                 </WeatherCard>
               );
@@ -268,7 +269,6 @@ export function WeatherDashboard() {
         </div>
       </main>
 
-      {/* Footer fixado no fim */}
       <footer className="footer text-center pt-8 pb-6 border-t border-white/20 w-full">
         <p className="text-sm text-white">
           &copy; {new Date().getFullYear()} Todos os direitos reservados.
@@ -285,4 +285,3 @@ export function WeatherDashboard() {
     </div>
   );
 }
-
