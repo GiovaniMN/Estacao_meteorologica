@@ -93,13 +93,13 @@ const getRainConfig = (level: number) => {
 // mm aproximados por nível
 const getRainMm = (level: number): number => {
   switch (level) {
-    case 0: return 0;   // SEM CHUVA
-    case 1: return 2;   // GAROA
-    case 2: return 5;   // FRACA
-    case 3: return 10;  // MODERADA
-    case 4: return 20;  // FORTE
-    case 5: return 35;  // INTENSA
-    case 6: return 48;  // EXTREMA
+    case 0: return 0;
+    case 1: return 2;
+    case 2: return 5;
+    case 3: return 10;
+    case 4: return 20;
+    case 5: return 35;
+    case 6: return 48;
     default: return 0;
   }
 };
@@ -263,13 +263,13 @@ export function WeatherDashboard() {
               return (
                 <WeatherCard
                   title="Precipitação"
-                  value={`${intensidadeTexto}" mm"`}
+                  value={`${intensidadeTexto} (mm)`}
                   unit=""
                   icon={rainConfig.icon}
                   color="precipitation"
                   isLoading={isLoading}
                   customColor={rainConfig.color}
-                  statusText={`"Equivalente a "${mmTexto}`}
+                  statusText={`Equivalente a ${mmTexto} de chuva acumulada`}
                 >
                   <WeatherChart
                     data={historicalData.chuva_nivel}
@@ -303,4 +303,3 @@ export function WeatherDashboard() {
     </div>
   );
 }
-
