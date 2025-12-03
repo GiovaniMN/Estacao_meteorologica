@@ -83,8 +83,24 @@ const getRainConfig = (level: number) => {
       return { icon: CloudLightning, color: "darkblue", label: "Forte" };
     case 5:
       return { icon: CloudLightning, color: "darkblue", label: "Intensa" };
+    case 6:
+      return { icon: CloudLightning, color: "darkblue", label: "Extrema" };
     default:
       return { icon: CloudRain, color: "darkblue", label: "--" };
+  }
+};
+
+// mm aproximados por nível
+const getRainMm = (level: number): number => {
+  switch (level) {
+    case 0: return 0;   // SEM CHUVA
+    case 1: return 2;   // GAROA
+    case 2: return 5;   // FRACA
+    case 3: return 10;  // MODERADA
+    case 4: return 20;  // FORTE
+    case 5: return 35;  // INTENSA
+    case 6: return 48;  // EXTREMA
+    default: return 0;
   }
 };
 
@@ -144,6 +160,9 @@ export function WeatherDashboard() {
     if (!value && value !== 0) return "--";
     return value.toFixed(decimals);
   };
+
+  const rainLevel = weatherData?.chuva_nivel ?? 0;
+  const rainMm = getRainMm(rainLevel);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -237,17 +256,20 @@ export function WeatherDashboard() {
             })()}
 
             {(() => {
-              const rainConfig = getRainConfig(weatherData?.chuva_nivel ?? 0);
+              const rainConfig = getRainConfig(rainLevel);
+              const intensidadeTexto = weatherData?.chuva_intensidade || "Sem dados";
+              const mmTexto = rainMm > 0 ? `${rainMm} mm` : "0 mm";
+
               return (
                 <WeatherCard
                   title="Precipitação"
-                  value={weatherData?.chuva_intensidade || "Sem dados"}
+                  value={`${intensidadeTexto} (${mmTexto})`}
                   unit=""
                   icon={rainConfig.icon}
                   color="precipitation"
                   isLoading={isLoading}
                   customColor={rainConfig.color}
-                  statusText={"  "}
+                  statusText={mmTexto}
                 >
                   <WeatherChart
                     data={historicalData.chuva_nivel}
@@ -255,8 +277,8 @@ export function WeatherDashboard() {
                     unit=""
                     stroke={rainConfig.color}
                     title="Nível de Intensidade"
-                    yDomain={[0, 5]}
-                    yTicks={[0, 1, 2, 3, 4, 5]}
+                    yDomain={[0, 6]}
+                    yTicks={[0, 1, 2, 3, 4, 5, 6]}
                   />
                 </WeatherCard>
               );
@@ -281,6 +303,3 @@ export function WeatherDashboard() {
     </div>
   );
 }
-
-
-
