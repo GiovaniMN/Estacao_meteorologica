@@ -263,13 +263,13 @@ export function WeatherDashboard() {
               return (
                 <WeatherCard
                   title="Precipitação"
-                  value={`${intensidadeTexto} (${mmTexto})`}
+                  value={`${intensidadeTexto}" mm"`}
                   unit=""
                   icon={rainConfig.icon}
                   color="precipitation"
                   isLoading={isLoading}
                   customColor={rainConfig.color}
-                  statusText={mmTexto}
+                  statusText={`"Equivalente a "${mmTexto}`}
                 >
                   <WeatherChart
                     data={historicalData.chuva_nivel}
@@ -303,3 +303,4 @@ export function WeatherDashboard() {
     </div>
   );
 }
+
